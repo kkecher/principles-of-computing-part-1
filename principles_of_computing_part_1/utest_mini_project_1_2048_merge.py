@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 
 import unittest
 import mini_project_1_2048_merge as project_2048
