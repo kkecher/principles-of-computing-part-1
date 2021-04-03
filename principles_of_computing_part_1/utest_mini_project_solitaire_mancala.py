@@ -3,7 +3,7 @@
 import unittest
 from mini_project_solitaire_mancala import SolitaireMancala
 
-class TestMerge(unittest.TestCase):
+class TestSolitaireMancala(unittest.TestCase):
     def test_init(self):
         game = SolitaireMancala()
         self.assertEqual(game._board, [0])
