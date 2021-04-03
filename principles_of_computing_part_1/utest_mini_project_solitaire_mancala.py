@@ -7,7 +7,7 @@ class TestSolitaireMancala(unittest.TestCase):
     def test_init(self):
         game = SolitaireMancala()
         self.assertEqual(game._board, [0])
-        
+
     def test_set_board(self):
         game = SolitaireMancala()
         game.set_board([5, 4, 6, 1, 7, 4, 0, 0])
@@ -22,7 +22,7 @@ class TestSolitaireMancala(unittest.TestCase):
         self.assertEqual(game._board, [666])
         game.set_board([])
         self.assertEqual(game._board, [])
-        
+
     def test_str(self):
         game = SolitaireMancala()
         game.set_board([5, 4, 6, 1, 7, 4, 0, 0])
@@ -37,7 +37,7 @@ class TestSolitaireMancala(unittest.TestCase):
         self.assertEqual(game.__str__(), '[666]')
         game.set_board([])
         self.assertEqual(game.__str__(), '[]')
-        
+
     def test_get_num_seeds(self):
         game = SolitaireMancala()
         game.set_board([5, 4, 6, 1, 7, 4, 0, 0])
@@ -45,7 +45,7 @@ class TestSolitaireMancala(unittest.TestCase):
         self.assertEqual(game.get_num_seeds(-4), 7)
         self.assertEqual(game.get_num_seeds(0), 5)
         self.assertEqual(game.get_num_seeds(-1), 0)
-        self.assertEqual(game.get_num_seeds(1), 4)                
+        self.assertEqual(game.get_num_seeds(1), 4)
         game.set_board([0])
         self.assertEqual(game.get_num_seeds(1), 'abs(house_num) should be less len(board).\nlen(board) == 1\nabs(house_num) == 1')
         game.set_board([])
@@ -74,7 +74,7 @@ class TestSolitaireMancala(unittest.TestCase):
         self.assertEqual(game.is_legal_move(2), True)
         self.assertEqual(game.is_legal_move(3), True)
         self.assertEqual(game.is_legal_move(4), False)
-        self.assertEqual(game.is_legal_move(-1), False)        
+        self.assertEqual(game.is_legal_move(-1), False)
         self.assertEqual(game.is_legal_move(-2), True)
         self.assertEqual(game.is_legal_move(-5), False)
         game.set_board([])
@@ -115,7 +115,7 @@ class TestSolitaireMancala(unittest.TestCase):
         game.set_board([2, 1, 2, 3, 2])
         self.assertEqual(game.apply_move(4), [2, 1, 3, 4, 0])
         game.set_board([2, 1, 2, 3, 2])
-        self.assertEqual(game.apply_move(-1), [2, 1, 3, 4, 0])        
+        self.assertEqual(game.apply_move(-1), [2, 1, 3, 4, 0])
         game.set_board([2, 1, 2, 3, 2])
         self.assertEqual(game.apply_move(-2), [3, 2, 3, 0, 2])
         game.set_board([2, 1, 2, 3, 2])
@@ -153,7 +153,7 @@ class TestSolitaireMancala(unittest.TestCase):
         game.set_board([])
         self.assertEqual(game.is_game_won(), True)
         game.set_board([0, 0, 0, 0, 0, 0, 0])
-        self.assertEqual(game.is_game_won(), True)        
+        self.assertEqual(game.is_game_won(), True)
 
     def test_plan_moves(self):
         game = SolitaireMancala()
@@ -179,11 +179,11 @@ class TestSolitaireMancala(unittest.TestCase):
         self.assertEqual(game.plan_moves(), [1, 3, 1, 2, 1])
         game.set_board([1])
         self.assertEqual(game.plan_moves(), [])
-        game.set_board([5, 1])        
+        game.set_board([5, 1])
         self.assertEqual(game.plan_moves(), [1])
-        game.set_board([5, 0])        
+        game.set_board([5, 0])
         self.assertEqual(game.plan_moves(), [])
-        game.set_board([5, 2])        
+        game.set_board([5, 2])
         self.assertEqual(game.plan_moves(), [])
 
 if __name__ == '__main__':
