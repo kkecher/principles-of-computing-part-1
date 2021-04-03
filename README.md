@@ -1,0 +1,1 @@
+Tasks decisions for the course <a href=https://www.coursera.org/learn/principles-of-computing-1>Coursera > Principles of Computing (Part 1)</a>
