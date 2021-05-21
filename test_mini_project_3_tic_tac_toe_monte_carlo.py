@@ -6,7 +6,7 @@ Tests for mini-project #4 - Tic-Tac-Toe (Monte Carlo)
 
 import poc_simpletest
 import random
-import user48_gUfH3o6E9k_33 as ttt
+import user48_gUfH3o6E9k_35 as ttt
 import poc_ttt_provided as provided
 
 def test_mc_trial_if_both_players_played():
@@ -460,7 +460,8 @@ def test_get_best_move_if_two_equal_maxes_and_none_is_empty():
             second_best_row = random.randrange(number_of_squares)
             second_best_col = random.randrange(number_of_squares)
             if (second_best_row != best_row or second_best_col != best_col) and\
-            (second_best_row != other_best_row or second_best_col != other):
+            (second_best_row != other_best_row or\
+             second_best_col != other_best_col):
                 break
         scores[other_best_row][other_best_col] = 1
         best_move = ttt.get_best_move(board, scores)
