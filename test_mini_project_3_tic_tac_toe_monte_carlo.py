@@ -6,7 +6,7 @@ Tests for mini-project #4 - Tic-Tac-Toe (Monte Carlo)
 
 import poc_simpletest
 import random
-import user48_gUfH3o6E9k_35 as ttt
+import user48_gUfH3o6E9k_55 as ttt
 import poc_ttt_provided as provided
 
 def test_mc_trial_if_both_players_played():
@@ -17,7 +17,7 @@ def test_mc_trial_if_both_players_played():
 
     tests = poc_simpletest.TestSuite()
     test_counter = 0
-    number_of_squares_cases = [2, 3, 8, 10, 13]
+    number_of_squares_cases = [2, 8, 13]
 
     for number_of_squares in number_of_squares_cases:
         for player in [provided.PLAYERX, provided.PLAYERO]:
@@ -50,7 +50,7 @@ def test_mc_trial_if_game_finished():
     tests = poc_simpletest.TestSuite()
     test_counter = 0
     valid_check_win_returns = (2, 3, 4)
-    number_of_squares_cases = [0, 1, 3, 8, 10, 13]
+    number_of_squares_cases = [0, 1, 2, 8, 13]
 
     for number_of_squares in number_of_squares_cases:
         for player in [provided.PLAYERX, provided.PLAYERO]:
@@ -80,8 +80,8 @@ def test_get_winner_code():
 
     tests = poc_simpletest.TestSuite()
     test_counter = 0
-    number_of_squares_cases = [2, 3, 8, 10, 13]
-    valid_winner_codes = [2, 3, 4]
+    valid_winner_codes = (2, 3, 4)
+    number_of_squares_cases = [2, 8, 13]
 
     for number_of_squares in number_of_squares_cases:
         for player in [provided.PLAYERX, provided.PLAYERO]:
@@ -112,7 +112,7 @@ def test_get_looser_code():
 
     tests = poc_simpletest.TestSuite()
     test_counter = 0
-    number_of_squares_cases = [2, 3, 8, 10, 13]
+    number_of_squares_cases = [2, 8, 13]
 
     for number_of_squares in number_of_squares_cases:
         for player in [provided.PLAYERX, provided.PLAYERO]:
@@ -203,14 +203,14 @@ def test_mc_update_scores():
 
     tests = poc_simpletest.TestSuite()
     test_counter = 0
-    number_of_squares_cases = [2, 3, 8, 10, 13]
+    number_of_squares_cases = [2, 8, 13]
     number_of_checks_squares = 10
-    machine_player = provided.PLAYERX
+    machine_player = random.choice([provided.PLAYERX, provided.PLAYERO])
 
     for number_of_squares in number_of_squares_cases:
         for player in [provided.PLAYERX, provided.PLAYERO]:
             scores = [[0]*number_of_squares for\
-                      dummy in range(number_of_squares)]
+                      _dummy in range(number_of_squares)]
             board = provided.TTTBoard(number_of_squares)
             ttt.mc_trial(board, player)
             ttt.mc_update_scores(scores, board, machine_player)
@@ -224,7 +224,7 @@ def test_mc_update_scores():
             #    None if game is in progress
             winner_code = ttt.get_winner_code(board)
             looser_code = ttt.get_looser_code(board)
-            for dummy in range(
+            for _dummy in range(
                     min(number_of_squares, number_of_checks_squares)
             ):
                 row = random.randrange(number_of_squares)
@@ -267,11 +267,11 @@ def test_get_best_move_if_max_is_not_empty():
 
     tests = poc_simpletest.TestSuite()
     test_counter = 0
-    number_of_squares_cases = [2, 7, 8]
+    number_of_squares_cases = [2, 8, 13]
 
     for number_of_squares in number_of_squares_cases:
         board = provided.TTTBoard(number_of_squares)
-        scores = [[0]*number_of_squares for dummy in range(number_of_squares)]
+        scores = [[0]*number_of_squares for _dummy in range(number_of_squares)]
         best_row = random.randrange(number_of_squares)
         best_col = random.randrange(number_of_squares)
         scores[best_row][best_col] = 2
@@ -304,11 +304,11 @@ def test_get_best_move_if_max_is_empty():
 
     tests = poc_simpletest.TestSuite()
     test_counter = 0
-    number_of_squares_cases = [2, 7, 8]
+    number_of_squares_cases = [2, 8, 13]
 
     for number_of_squares in number_of_squares_cases:
         board = provided.TTTBoard(number_of_squares)
-        scores = [[0]*number_of_squares for dummy in range(number_of_squares)]
+        scores = [[0]*number_of_squares for _dummy in range(number_of_squares)]
         best_row = random.randrange(number_of_squares)
         best_col = random.randrange(number_of_squares)
         scores[best_row][best_col] = 2
@@ -340,11 +340,11 @@ def test_get_best_move_if_two_equal_maxes_and_both_are_empty():
 
     tests = poc_simpletest.TestSuite()
     test_counter = 0
-    number_of_squares_cases = [2, 7, 8]
+    number_of_squares_cases = [2, 8, 13]
 
     for number_of_squares in number_of_squares_cases:
         board = provided.TTTBoard(number_of_squares)
-        scores = [[0]*number_of_squares for dummy in range(number_of_squares)]
+        scores = [[0]*number_of_squares for _dummy in range(number_of_squares)]
         best_row = random.randrange(number_of_squares)
         best_col = random.randrange(number_of_squares)
         scores[best_row][best_col] = 2
@@ -389,11 +389,11 @@ def test_get_best_move_if_two_equal_maxes_and_one_is_empty():
 
     tests = poc_simpletest.TestSuite()
     test_counter = 0
-    number_of_squares_cases = [2, 7, 8]
+    number_of_squares_cases = [2, 8, 13]
 
     for number_of_squares in number_of_squares_cases:
         board = provided.TTTBoard(number_of_squares)
-        scores = [[0]*number_of_squares for dummy in range(number_of_squares)]
+        scores = [[0]*number_of_squares for _dummy in range(number_of_squares)]
         best_row = random.randrange(number_of_squares)
         best_col = random.randrange(number_of_squares)
         scores[best_row][best_col] = 2
@@ -438,11 +438,11 @@ def test_get_best_move_if_two_equal_maxes_and_none_is_empty():
 
     tests = poc_simpletest.TestSuite()
     test_counter = 0
-    number_of_squares_cases = [2, 7, 8]
+    number_of_squares_cases = [2, 8, 13]
 
     for number_of_squares in number_of_squares_cases:
         board = provided.TTTBoard(number_of_squares)
-        scores = [[0]*number_of_squares for dummy in range(number_of_squares)]
+        scores = [[0]*number_of_squares for _dummy in range(number_of_squares)]
         best_row = random.randrange(number_of_squares)
         best_col = random.randrange(number_of_squares)
         scores[best_row][best_col] = 2
@@ -463,7 +463,7 @@ def test_get_best_move_if_two_equal_maxes_and_none_is_empty():
             (second_best_row != other_best_row or\
              second_best_col != other_best_col):
                 break
-        scores[other_best_row][other_best_col] = 1
+        scores[second_best_row][second_best_col] = 1
         best_move = ttt.get_best_move(board, scores)
         tests.run_test(
             best_move,
@@ -477,39 +477,31 @@ def test_get_best_move_if_two_equal_maxes_and_none_is_empty():
     print
     return tests.total_tests, tests.failures
 
-def test_mc_move(board, player, trials):
+def test_mc_move():
     """
-    This function takes a current board, which player the machin player is,
-    and the number of trials to run.
-    The function should use the Monte Carlo simulation described above
-    to return a move for the machine player in the form of a (row, col) tuple.
-    Be sure to use the other functions you have written!
+    This test is more an integration one. It takes other
+    functions and return the best move in (row, col) tuple form.
 
-    Test if game was finished in 'mc_trial'  method.
-    'provided.check_win' method returns one of the values:
-        2 if PLAYERX won
-        3 if PLAYERO won
-        4 if DRAW
-        None if game is in progress
+    Tested only on empty board.
     """
-    print 'Testing mc_trial_if_game_finished\n' + 60*'#'
+    print 'Testing mc_move\n' + 60*'#'
 
     tests = poc_simpletest.TestSuite()
     test_counter = 0
-    valid_check_win_returns = (2, 3, 4)
-    number_of_squares_cases = [0, 1, 3, 8, 10, 13]
+    number_of_squares_cases = [2, 7, 8]
+    number_of_trials = [1, 2, 6]
 
     for number_of_squares in number_of_squares_cases:
         for player in [provided.PLAYERX, provided.PLAYERO]:
-            board = provided.TTTBoard(number_of_squares)
-            ttt.mc_trial(board, player)
-            tests.run_test(
-                board.check_win() in valid_check_win_returns,
-                True,
-                'test_mc_trial # ' + str(test_counter) + ': '
-            )
-            test_counter += 1
-
+            for trials in number_of_trials:
+                board = provided.TTTBoard(number_of_squares)
+                move = ttt.mc_move(board, player, trials)
+                is_valid_move = len(move) == 2 and\
+                    0 <= move[0] < number_of_squares and\
+                    0 <= move[1] < number_of_squares
+                tests.run_test(is_valid_move, True, 'test_mc_move # ' +\
+                              str(test_counter) + ':')
+                test_counter += 1
     tests.report_results()
     print
     return tests.total_tests, tests.failures
@@ -579,6 +571,11 @@ def test_all():
         lambda x, y: x+y,
         total_stat,
         list(test_get_best_move_if_two_equal_maxes_and_none_is_empty())
+    )
+    total_stat = map(
+        lambda x, y: x+y,
+        total_stat,
+        list(test_mc_move())
     )
     print 'Testing summary\n' + 60*'#'
     print 'Ran ' + str(total_stat[0]) + ' tests. ' +\

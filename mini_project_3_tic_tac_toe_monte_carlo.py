@@ -11,7 +11,7 @@ import poc_ttt_provided as provided
 # Constants for Monte Carlo simulator
 # You may change the values of these constants as desired, but
 #  do not change their names.
-NTRIALS = 1         # Number of trials to run
+NTRIALS = 5         # Number of trials to run
 SCORE_CURRENT = 1.0 # Score for squares played by the current player
 SCORE_OTHER = 1.0   # Score for squares played by the other player
 
@@ -131,9 +131,9 @@ def get_best_move(board, scores):
     """
     copy_scores = [list(row) for row in scores]
     while True:
-        max_in_rows = dict(enumerate(map(max, copy_scores)))
-        max_row_index = max(max_in_rows, key=lambda key: max_in_rows[key])
-        max_row = scores[max_row_index]
+        maxes_in_rows = dict(enumerate(map(max, copy_scores)))
+        max_row_index = max(maxes_in_rows, key=lambda key: maxes_in_rows[key])
+        max_row = copy_scores[max_row_index]
         max_col_index = max(range(len(max_row)), key=max_row.__getitem__)
         if board.square(max_row_index, max_col_index) == 1:
             return max_row_index, max_col_index
@@ -148,12 +148,19 @@ def mc_move(board, player, trials):
     form of a (row, column) tuple.
     Be sure to use the other functions you have written!
     """
-    pass
-
+    assert trials > 0, 'Number of trials must be >0'
+    board_dim = board.get_dim()
+    scores = [[0]*board_dim for\
+              _dummy in range(board_dim)]
+    for trial in range(trials):
+        mc_board = provided.TTTBoard(board_dim)
+        mc_trial(mc_board, player)
+        mc_update_scores(scores, mc_board, player)
+    return get_best_move(board, scores)
 
 # Test game with the console or the GUI.  Uncomment whichever
 # you prefer.  Both should be commented out when you submit
 # for testing to save time.
 
-# provided.play_game(mc_move, NTRIALS, False)
+provided.play_game(mc_move, NTRIALS, False)
 # poc_ttt_gui.run_gui(3, provided.PLAYERX, mc_move, NTRIALS, False)
