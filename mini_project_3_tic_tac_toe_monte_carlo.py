@@ -11,7 +11,7 @@ import poc_ttt_provided as provided
 # Constants for Monte Carlo simulator
 # You may change the values of these constants as desired, but
 #  do not change their names.
-NTRIALS = 5         # Number of trials to run
+NTRIALS = 50         # Number of trials to run
 SCORE_CURRENT = 1.0 # Score for squares played by the current player
 SCORE_OTHER = 1.0   # Score for squares played by the other player
 
@@ -23,13 +23,13 @@ def mc_trial(board, player):
     random moves, alternating between players. The function should return when
     the game is over. The modified board will contain the state of the game, so
     the function does not return anything. In other words, the function should
-    modify the `board` input.4
+    modify the `board` input.
 
     `get_winner_code(board)` function returns one of the values:
-        2 if PLAYERX won
-        3 if PLAYERO won
-        4 if DRAW
-        None if game is in progress
+    2 if PLAYERX won
+    3 if PLAYERO won
+    4 if DRAW
+    None if game is in progress
     """
     while not get_winner_code(board):
         empty_squares = board.get_empty_squares()
@@ -48,9 +48,9 @@ def mc_update_scores(scores, board, player):
     scores grid directly, it does not return anything.
 
     Method `board.square(self, row, col)` returns:
-        1 if the cell is EMPTY
-        2 if the cell is PLAYERX
-        3 if the cell is PLAYERO
+    1 if the cell is EMPTY
+    2 if the cell is PLAYERX
+    3 if the cell is PLAYERO
     """
     player_code = convert_player_to_player_code(player)
     winner_code = get_winner_code(board)
@@ -62,33 +62,33 @@ def mc_update_scores(scores, board, player):
         score_current = -SCORE_CURRENT
         score_other = SCORE_OTHER
     else:
-        score_current = 0
-        score_other = 0
+        score_current = 0.0
+        score_other = 0.0
     board_dim = board.get_dim()
     for row in range(board_dim):
         for col in range(board_dim):
-            square_code = board.square(row, col)
-            if square_code == player_code:
+            square_player_code = board.square(row, col)
+            if square_player_code == player_code:
                 scores[row][col] += score_current
-            elif square_code != 1:
+            elif square_player_code != 1:
                 scores[row][col] += score_other
     return
 
 def get_winner_code(board):
     """
-    Takes a completed board and get the winner_code
+    Takes a completed board and get the winner_code.
 
     `provided.check_win` method returns one of the values:
-        2 if PLAYERX won
-        3 if PLAYERO won
-        4 if DRAW
-        None if game is in progress
+    2 if PLAYERX won
+    3 if PLAYERO won
+    4 if DRAW
+    None if game is in progress
     """
     return board.check_win()
 
 def get_looser_code(board):
     """
-    Takes a completed board and get the looser_code
+    Takes a completed board and get the looser_code.
     """
     match_winner_to_looser_codes = {2: 3, 3: 2, 4: 4}
     winner_code = get_winner_code(board)
@@ -129,16 +129,27 @@ def get_best_move(board, scores):
         2 if the cell is PLAYERX
         3 if the cell is PLAYERO
     """
-    copy_scores = [list(row) for row in scores]
+    copied_scores = [list(row) for row in scores]
     while True:
-        maxes_in_rows = dict(enumerate(map(max, copy_scores)))
+        mins_in_rows = dict(enumerate(map(min, copied_scores)))
+        min_row_index = min(mins_in_rows, key=lambda key: mins_in_rows[key])
+        min_row = copied_scores[min_row_index]
+        min_col_index = min(range(len(min_row)), key=min_row.__getitem__)
+
+        maxes_in_rows = dict(enumerate(map(max, copied_scores)))
         max_row_index = max(maxes_in_rows, key=lambda key: maxes_in_rows[key])
-        max_row = copy_scores[max_row_index]
+        max_row = copied_scores[max_row_index]
         max_col_index = max(range(len(max_row)), key=max_row.__getitem__)
-        if board.square(max_row_index, max_col_index) == 1:
-            return max_row_index, max_col_index
+
+        if copied_scores[max_row_index][max_col_index] ==\
+           copied_scores[min_row_index][min_col_index]:
+            empty_squares = board.get_empty_squares()
+            return random.choice(empty_squares)
+        elif board.square(max_row_index, max_col_index) == 1:
+            return (max_row_index, max_col_index)
         else:
-            copy_scores[max_row_index][max_col_index] = 0
+            copied_scores[max_row_index][max_col_index] =\
+                copied_scores[min_row_index][min_col_index]
 
 def mc_move(board, player, trials):
     """
@@ -148,19 +159,19 @@ def mc_move(board, player, trials):
     form of a (row, column) tuple.
     Be sure to use the other functions you have written!
     """
-    assert trials > 0, 'Number of trials must be >0'
+    assert trials > 0, 'Number of trials must be > 0'
     board_dim = board.get_dim()
-    scores = [[0]*board_dim for\
+    scores = [[0.0]*board_dim for\
               _dummy in range(board_dim)]
-    for trial in range(trials):
-        mc_board = provided.TTTBoard(board_dim)
-        mc_trial(mc_board, player)
-        mc_update_scores(scores, mc_board, player)
+    for _trial in range(trials):
+        copied_board = board.clone()
+        mc_trial(copied_board, player)
+        mc_update_scores(scores,  copied_board, player)
     return get_best_move(board, scores)
 
 # Test game with the console or the GUI.  Uncomment whichever
 # you prefer.  Both should be commented out when you submit
 # for testing to save time.
 
-provided.play_game(mc_move, NTRIALS, False)
+#provided.play_game(mc_move, NTRIALS, False)
 # poc_ttt_gui.run_gui(3, provided.PLAYERX, mc_move, NTRIALS, False)

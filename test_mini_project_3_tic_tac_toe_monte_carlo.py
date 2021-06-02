@@ -6,12 +6,12 @@ Tests for mini-project #4 - Tic-Tac-Toe (Monte Carlo)
 
 import poc_simpletest
 import random
-import user48_gUfH3o6E9k_55 as ttt
+import user48_gUfH3o6E9k_67 as ttt
 import poc_ttt_provided as provided
 
 def test_mc_trial_if_both_players_played():
     """
-    Test if both players played in 'mc_trial'  method.
+    Test if both players played in `mc_trial`  method.
     """
     print 'Testing mc_trial_if_both_players_played\n' + 60*'#'
 
@@ -37,9 +37,9 @@ def test_mc_trial_if_both_players_played():
 
 def test_mc_trial_if_game_finished():
     """
-    Test if game was finished in 'mc_trial'  method.
+    Test if game was finished in `mc_trial`  method.
 
-    'provided.check_win' method returns one of the values:
+    `provided.check_win` method returns one of the values:
         2 if PLAYERX won
         3 if PLAYERO won
         4 if DRAW
@@ -192,9 +192,9 @@ def test_convert_player_to_player_code():
 
 def test_mc_update_scores():
     """
-    Test if 'mc_update_scores' updated squares scores correctly.
+    Test if `mc_update_scores` updated squares scores correctly.
 
-    method 'board.square(self, row, col)' returns:
+    method `board.square(self, row, col)` returns:
         1 if the cell is EMPTY
         2 if the cell is PLAYERX
         3 if the cell is PLAYERO
@@ -209,15 +209,15 @@ def test_mc_update_scores():
 
     for number_of_squares in number_of_squares_cases:
         for player in [provided.PLAYERX, provided.PLAYERO]:
-            scores = [[0]*number_of_squares for\
+            scores = [[0.0]*number_of_squares for\
                       _dummy in range(number_of_squares)]
             board = provided.TTTBoard(number_of_squares)
             ttt.mc_trial(board, player)
             ttt.mc_update_scores(scores, board, machine_player)
 
-            #Check if the 'scores' was updated correctly
+            #Check if the `scores` was updated correctly
 
-            #'ttt.get_winner_code(board)' returns one of the values:
+            #`ttt.get_winner_code(board)` returns one of the values:
             #    2 if PLAYERX won
             #    3 if PLAYERO won
             #    4 if DRAW
@@ -233,24 +233,24 @@ def test_mc_update_scores():
                 if square_code == winner_code and winner_code != looser_code:
                     tests.run_test(
                         scores[row][col],
-                        1,
+                        1.0,
                         'test_mc_update_scores #' +  str(test_counter) + ': '
                     )
                 elif square_code == looser_code and winner_code != looser_code:
                     tests.run_test(
                         scores[row][col],
-                        -1,
+                        -1.0,
                         'test_mc_update_scores #' + str(test_counter) + ': '
                     )
                 elif square_code == 1 or winner_code == looser_code:
                     tests.run_test(
                         scores[row][col],
-                        0,
+                        0.0,
                         'test_mc_update_scores #' + str(test_counter) + ': '
                     )
                 else:
                     raise Exception(
-                        'Uncaught condition at test_mc_update_scores function'
+                        'Uncaught condition at `test_mc_update_scores` function'
                     )
 
             test_counter += 1
@@ -271,10 +271,10 @@ def test_get_best_move_if_max_is_not_empty():
 
     for number_of_squares in number_of_squares_cases:
         board = provided.TTTBoard(number_of_squares)
-        scores = [[0]*number_of_squares for _dummy in range(number_of_squares)]
+        scores = [[0.0]*number_of_squares for _dummy in range(number_of_squares)]
         best_row = random.randrange(number_of_squares)
         best_col = random.randrange(number_of_squares)
-        scores[best_row][best_col] = 2
+        scores[best_row][best_col] = 2.0
         player = random.choice([provided.PLAYERX, provided.PLAYERO])
         board.move(best_row, best_col, player)
         while True:
@@ -282,7 +282,7 @@ def test_get_best_move_if_max_is_not_empty():
             second_best_col = random.randrange(number_of_squares)
             if second_best_row != best_row or second_best_col != best_col:
                 break
-        scores[second_best_row][second_best_col] = 1
+        scores[second_best_row][second_best_col] = 1.0
         best_move = ttt.get_best_move(board, scores)
         tests.run_test(
             best_move,
@@ -308,16 +308,16 @@ def test_get_best_move_if_max_is_empty():
 
     for number_of_squares in number_of_squares_cases:
         board = provided.TTTBoard(number_of_squares)
-        scores = [[0]*number_of_squares for _dummy in range(number_of_squares)]
+        scores = [[0.0]*number_of_squares for _dummy in range(number_of_squares)]
         best_row = random.randrange(number_of_squares)
         best_col = random.randrange(number_of_squares)
-        scores[best_row][best_col] = 2
+        scores[best_row][best_col] = 2.0
         while True:
             second_best_row = random.randrange(number_of_squares)
             second_best_col = random.randrange(number_of_squares)
             if second_best_row != best_row or second_best_col != best_col:
                 break
-        scores[second_best_row][second_best_col] = 1
+        scores[second_best_row][second_best_col] = 1.0
         best_move = ttt.get_best_move(board, scores)
         tests.run_test(
             best_move,
@@ -344,16 +344,16 @@ def test_get_best_move_if_two_equal_maxes_and_both_are_empty():
 
     for number_of_squares in number_of_squares_cases:
         board = provided.TTTBoard(number_of_squares)
-        scores = [[0]*number_of_squares for _dummy in range(number_of_squares)]
+        scores = [[0.0]*number_of_squares for _dummy in range(number_of_squares)]
         best_row = random.randrange(number_of_squares)
         best_col = random.randrange(number_of_squares)
-        scores[best_row][best_col] = 2
+        scores[best_row][best_col] = 2.0
         while True:
             other_best_row = random.randrange(number_of_squares)
             other_best_col = random.randrange(number_of_squares)
             if other_best_row != best_row or other_best_col != best_col:
                 break
-        scores[other_best_row][other_best_col] = 2
+        scores[other_best_row][other_best_col] = 2.0
         while True:
             second_best_row = random.randrange(number_of_squares)
             second_best_col = random.randrange(number_of_squares)
@@ -365,7 +365,7 @@ def test_get_best_move_if_two_equal_maxes_and_both_are_empty():
                 second_best_col != other_best_col
             ):
                 break
-        scores[second_best_row][second_best_col] = 1
+        scores[second_best_row][second_best_col] = 1.0
         best_move = ttt.get_best_move(board, scores)
         tests.run_test(
             best_move == (best_row, best_col) or
@@ -393,10 +393,10 @@ def test_get_best_move_if_two_equal_maxes_and_one_is_empty():
 
     for number_of_squares in number_of_squares_cases:
         board = provided.TTTBoard(number_of_squares)
-        scores = [[0]*number_of_squares for _dummy in range(number_of_squares)]
+        scores = [[0.0]*number_of_squares for _dummy in range(number_of_squares)]
         best_row = random.randrange(number_of_squares)
         best_col = random.randrange(number_of_squares)
-        scores[best_row][best_col] = 2
+        scores[best_row][best_col] = 2.0
         player = random.choice([provided.PLAYERX, provided.PLAYERO])
         board.move(best_row, best_col, player)
         while True:
@@ -404,7 +404,7 @@ def test_get_best_move_if_two_equal_maxes_and_one_is_empty():
             other_best_col = random.randrange(number_of_squares)
             if other_best_row != best_row or other_best_col != best_col:
                 break
-        scores[other_best_row][other_best_col] = 2
+        scores[other_best_row][other_best_col] = 2.0
         while True:
             second_best_row = random.randrange(number_of_squares)
             second_best_col = random.randrange(number_of_squares)
@@ -416,7 +416,7 @@ def test_get_best_move_if_two_equal_maxes_and_one_is_empty():
                 second_best_col != other_best_col
             ):
                 break
-        scores[second_best_row][second_best_col] = 1
+        scores[second_best_row][second_best_col] = 1.0
         best_move = ttt.get_best_move(board, scores)
         tests.run_test(
             best_move,
@@ -442,10 +442,10 @@ def test_get_best_move_if_two_equal_maxes_and_none_is_empty():
 
     for number_of_squares in number_of_squares_cases:
         board = provided.TTTBoard(number_of_squares)
-        scores = [[0]*number_of_squares for _dummy in range(number_of_squares)]
+        scores = [[0.0]*number_of_squares for _dummy in range(number_of_squares)]
         best_row = random.randrange(number_of_squares)
         best_col = random.randrange(number_of_squares)
-        scores[best_row][best_col] = 2
+        scores[best_row][best_col] = 2.0
         player = random.choice([provided.PLAYERX, provided.PLAYERO])
         board.move(best_row, best_col, player)
         while True:
@@ -453,7 +453,7 @@ def test_get_best_move_if_two_equal_maxes_and_none_is_empty():
             other_best_col = random.randrange(number_of_squares)
             if other_best_row != best_row or other_best_col != best_col:
                 break
-        scores[other_best_row][other_best_col] = 2
+        scores[other_best_row][other_best_col] = 2.0
         player = random.choice([provided.PLAYERX, provided.PLAYERO])
         board.move(other_best_row, other_best_col, player)
         while True:
@@ -463,7 +463,7 @@ def test_get_best_move_if_two_equal_maxes_and_none_is_empty():
             (second_best_row != other_best_row or\
              second_best_col != other_best_col):
                 break
-        scores[second_best_row][second_best_col] = 1
+        scores[second_best_row][second_best_col] = 1.0
         best_move = ttt.get_best_move(board, scores)
         tests.run_test(
             best_move,
@@ -482,7 +482,7 @@ def test_mc_move():
     This test is more an integration one. It takes other
     functions and return the best move in (row, col) tuple form.
 
-    Tested only on empty board.
+    Tested only with empty board.
     """
     print 'Testing mc_move\n' + 60*'#'
 
